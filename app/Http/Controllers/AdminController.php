@@ -1,0 +1,73 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Comodities;
+use Illuminate\Support\Facades\DB;
+
+
+class AdminController extends Controller
+{
+    function index()
+    {
+
+        $comodities = Comodities::all();
+
+        return view("admin.index", [
+            "comodities" => $comodities
+        ]);
+    }
+
+    function add(Request $request)
+    {
+        $images = $request->file('images');
+        $imagesName = $images->getClientOriginalName();
+        $images->move(public_path('comodity_images'), $imagesName);
+
+        Comodities::create([
+            'name' => $request['name'],
+            'price' => $request['price'],
+            'stock' => $request['stock'],
+            'category' => $request['category'],
+            'images' => $imagesName,
+        ]);
+
+        return redirect('admin');
+    }
+
+    function edit(Request $request, Comodities $comodities)
+    {
+        $id = $request['id'];
+        $item = Comodities::find($id);
+
+        $image = '';
+
+        if ($request->hasFile('images')) {
+            $images = $request->file('images');
+            $imagesName = time() . '.' . $images->getClientOriginalExtension();
+            $images->move(public_path('comodity_images'), $imagesName);
+            $image = $imagesName;
+        }
+
+        $item->update([
+            'name' => $request['name'],
+            'price' => $request['price'],
+            'stock' => $request['stock'],
+            'category' => $request['category'],
+            'images' => $image,
+        ]);
+
+        return redirect('admin');
+    }
+
+    function delete(Request $request)
+    {
+        $id = $request['id'];
+        $item = Comodities::find($id);
+
+        $item->delete();
+
+        return redirect('admin');
+    }
+}
