@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const price = document.getElementById("price");
     const stock = document.getElementById("stock");
     const category = document.getElementById("category");
+    const defaultCategory = document.getElementById("defaultCategory");
     const images = document.getElementById("images");
     // submit btn
     const submitBtn = document.querySelector(".submit-btn");
@@ -64,7 +65,8 @@ document.addEventListener("DOMContentLoaded", () => {
             name.setAttribute("value", itemName);
             price.setAttribute("value", itemPrice.toLocaleString("id-ID"));
             stock.setAttribute("value", itemStock);
-            category.setAttribute("value", itemCategory);
+            defaultCategory.setAttribute("value", itemCategory);
+            defaultCategory.innerHTML = itemCategory
 
             // set button text
             submitBtn.classList.remove("d-none");

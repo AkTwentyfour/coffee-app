@@ -36,7 +36,7 @@ Route::post('/cashier', [CashierController::class,'store'])->name('store');
 // Manage Comodity
 Route::get('/comodity', [ComoditiesController::class, 'index'])->name('comodity')->middleware('admin');
 Route::post('/addItem', [ComoditiesController::class, 'add']);
-Route::post('/editItem/{id}', [ComoditiesController::class, 'edit']);
+Route::post('/editItem', [ComoditiesController::class, 'edit']);
 Route::post('/deleteItem', [ComoditiesController::class, 'delete']);
 
 

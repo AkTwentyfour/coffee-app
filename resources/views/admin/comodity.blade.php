@@ -81,6 +81,7 @@
                                 <div class="mb-2">
                                     <label for="category">Category</label>
                                     <select name="category" id="category" class="form-select crud-input">
+                                        <option id="defaultCategory"></option>
                                         <option value="coffee">Coffee</option>
                                         <option value="non_coffee">Non Coffee</option>
                                         <option value="traditional_coffee">Traditional Coffee</option>
