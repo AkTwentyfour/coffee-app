@@ -20,15 +20,39 @@ class ComoditiesSeeder extends Seeder
         // ]);
 
         DB::table('comodities')->insert([
-            ['name' => 'Es Kopi', 'price' => 10000, 'stock' => 10, 'category' => 'beverage'],
-            ['name' => 'Mix Plate', 'price' => 12000, 'stock' => 10, 'category' => 'food'],
-            ['name' => 'Mojito', 'price' => 15000, 'stock' => 10, 'category' => 'beverage'],
-            ['name' => 'Es kecubung', 'price' => 14000, 'stock' => 10, 'category' => 'beverage'],
-            ['name' => 'salad komodo', 'price' => 20000, 'stock' => 10, 'category' => 'food'],
-            ['name' => 'alpukat ngocok', 'price' => 10000, 'stock' => 10, 'category' => 'beverage'],
-            ['name' => 'sang pisang', 'price' => 15000, 'stock' => 10, 'category' => 'food'],
-            ['name' => 'Americano', 'price' => 18000, 'stock' => 10, 'category' => 'beverage'],
-            ['name' => 'french Fries', 'price' => 10000, 'stock' => 10, 'category' => 'food'],
+            ['name' => 'Kopi Susu', 'price' => 15000, 'stock' => 100, 'category' => 'coffee'],
+            ['name' => 'Kopi Hitam', 'price' => 13000, 'stock' => 100, 'category' => 'coffee'],
+            ['name' => 'Kopi Saring', 'price' => 13000, 'stock' => 100, 'category' => 'coffee'],
+            ['name' => 'Kopi Barbar', 'price' => 17000, 'stock' => 100, 'category' => 'coffee'],
+            ['name' => 'Kopi Kacang', 'price' => 17000, 'stock' => 100, 'category' => 'coffee'],
+            ['name' => 'Kopi Mawar', 'price' => 17000, 'stock' => 100, 'category' => 'coffee'],
+            ['name' => 'Kopi Kelapa', 'price' => 17000, 'stock' => 100, 'category' => 'coffee'],
+            ['name' => 'Kopi Gula Aren', 'price' => 17000, 'stock' => 100, 'category' => 'coffee'],
+            ['name' => 'Kopi Cocontol', 'price' => 17000, 'stock' => 100, 'category' => 'coffee'],
+            ['name' => 'Kopi Susu Coklat', 'price' => 15000, 'stock' => 100, 'category' => 'coffee'],
+            
+            ['name' => 'Kopassus', 'price' => 10000, 'stock' => 100, 'category' => 'traditional_coffee'],
+            ['name' => 'Sukoco', 'price' => 10000, 'stock' => 100, 'category' => 'traditional_coffee'],
+            ['name' => 'Kopyok', 'price' => 10000, 'stock' => 100, 'category' => 'traditional_coffee'],
+
+            ['name' => 'Coklat Kelapa', 'price' => 13000, 'stock' => 100, 'category' => 'non_coffee'],
+            ['name' => 'Coklat Original', 'price' => 13000, 'stock' => 100, 'category' => 'non_coffee'],
+            ['name' => 'Coklat Kacang', 'price' => 13000, 'stock' => 100, 'category' => 'non_coffee'],
+            ['name' => 'Matcha', 'price' => 13000, 'stock' => 100, 'category' => 'non_coffee'],
+            ['name' => 'Red Velvet', 'price' => 13000, 'stock' => 100, 'category' => 'non_coffee'],
+
+            ['name' => 'Kentang', 'price' => 10000, 'stock' => 100, 'category' => 'snack'],
+            ['name' => 'Risol isi Ayam', 'price' => 12000, 'stock' => 100, 'category' => 'snack'],
+            ['name' => 'Risol isi Coklat', 'price' => 12000, 'stock' => 100, 'category' => 'snack'],
+            ['name' => 'Lumpia isi Ayam', 'price' => 12000, 'stock' => 100, 'category' => 'snack'],
+            ['name' => 'Pangsit Goreng', 'price' => 12000, 'stock' => 100, 'category' => 'snack'],
+            ['name' => 'Pumpuk', 'price' => 10000, 'stock' => 100, 'category' => 'snack'],
+
+            ['name' => 'Mie Goreng', 'price' => 8000, 'stock' => 100, 'category' => 'heavy_meal'],
+            ['name' => 'Mie Rebus', 'price' => 8000, 'stock' => 100, 'category' => 'heavy_meal'],
+            ['name' => 'Mie Goreng Telor', 'price' => 12000, 'stock' => 100, 'category' => 'heavy_meal'],
+            ['name' => 'Mie Rebus Telor', 'price' => 12000, 'stock' => 100, 'category' => 'heavy_meal'],
+            ['name' => 'Mie Gemladag', 'price' => 12000, 'stock' => 100, 'category' => 'heavy_meal'],
         ]);
     }
 }

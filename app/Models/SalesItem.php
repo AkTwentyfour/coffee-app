@@ -18,6 +18,11 @@ class SalesItem extends Model
 
 
     function comodity() {
-        return $this->belongsTo(Comodities::class);
+        return $this->belongsTo(Comodities::class, 'comodity_id', 'id');
+    }
+
+
+    function getFormattedPriceAttribute() {
+        return number_format($this->price, 0, ',' ,'.');
     }
 }

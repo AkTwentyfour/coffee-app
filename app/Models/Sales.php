@@ -14,4 +14,8 @@ class Sales extends Model
     public function sales_item() {
         return $this->hasMany(SalesItem::class);
     }
+
+    public function getFormattedPriceAttribute() {
+        return number_format($this->total_amount, 0, ',', '.');
+    }
 }

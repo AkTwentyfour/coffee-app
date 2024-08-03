@@ -2,31 +2,37 @@
 
 @section('content')
     <div class="row gy-3">
-        <div class="col-md-8">
-            <div class="card cashier-card">
-                <div class="card-body p-4">
-                    <div class="d-flex justify-content-between mb-2">
-                        <div class="d-flex justify-content-center align-items-center gap-1">
-                            <div class="fs-5 fw-bold">Filter :</div>
-                            <button class="btn btn-first filter-btn" data-value="food">Food</button>
-                            <button class="btn btn-first filter-btn" data-value="beverages">Beverages</button>
+        <div class="col-md-8 position-relative">
+            <div class="card" style="background-color: var(--second);">
+                <div class="card-body p-4 scroll-card">
+                    <div class="d-flex justify-content-between mb-4">
+                        <div class="d-flex flex-wrap justify-content-start align-items-center gap-1">
+                            <button class="filter-btn btn  filter-btn-active" data-value="all">all</button>
+                            <button class="filter-btn btn" data-value="coffee">Coffee</button>
+                            <button class="filter-btn btn" data-value="non_coffee">Non Coffee</button>
+                            <button class="filter-btn btn" data-value="traditional_coffee">Traditional Coffee</button>
+                            <button class="filter-btn btn" data-value="snack">Snack</button>
+                            <button class="filter-btn btn" data-value="heavy_meal">Heavy Meal</button>
                         </div>
-                        <a class="add btn btn-first">Add new item</a>
+                        <div>
+                            <a class="add btn btn-first" style="height: max-content">Add +</a>
+                        </div>
                     </div>
                     <div class="row gy-4">
 
                         @php $id = 1; @endphp
                         @foreach ($comodities as $item)
-                            <div class="col-md-4">
+                            <div class="col-md-4 item-col" data-category="{{ $item['category'] }}">
                                 <div class="item"
                                     style="background-image: url({{ asset('comodity_images/' . $item['images']) }})"
                                     data-id="{{ $id }}" data-name="{{ $item['name'] }}"
-                                    data-stock="{{ $item['stock'] }}" data-price="{{ $item['price'] }}" data-category="{{ $item['category'] }}">
+                                    data-stock="{{ $item['stock'] }}" data-price="{{ $item['price'] }}"
+                                    data-category="{{ $item['category'] }}">
                                     <div class="item-info h-100">
                                         <div class="d-flex flex-column h-100">
                                             <div class="fs-6 mb-auto">{{ $item['name'] }}</div>
                                             <div class="fs-7">Stock : {{ $item['stock'] }}</div>
-                                            <div class="fs-7">Price : {{ $item['price'] }}</div>
+                                            <div class="fs-7">Price : {{ $item->formatted_price }}</div>
                                             <div class="fs-7">Category : {{ $item['category'] }}</div>
                                         </div>
                                         <div class="action align-self-end">
@@ -50,15 +56,15 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card cashier-card p-1">
-                <div class="card-body p-2">
+            <div class="card p-1" style="background-color: var(--second);">
+                <div class="card-body p-2 scroll-card">
                     <div class="card border-0 purchase-details">
                         <div class="card-body d-flex flex-column p-5">
                             <form action="" method="POST" id="crud-form" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="id" id="item_id">
                                 <div class="mb-2 custom-file-input">
-                                    <input type="file" name="images" id="images" class="form-control">
+                                    <input type="file" name="images" id="images" class="form-control" required>
                                 </div>
                                 <div class="mb-2">
                                     <label for="name">Name</label>
@@ -75,8 +81,11 @@
                                 <div class="mb-2">
                                     <label for="category">Category</label>
                                     <select name="category" id="category" class="form-select crud-input">
-                                        <option value="beverage">Beverages</option>
-                                        <option value="food">Food</option>
+                                        <option value="coffee">Coffee</option>
+                                        <option value="non_coffee">Non Coffee</option>
+                                        <option value="traditional_coffee">Traditional Coffee</option>
+                                        <option value="snack">Snack</option>
+                                        <option value="heavy_meal">Heavy Meal</option>
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-first mt-4 submit-btn w-100 d-none"></button>

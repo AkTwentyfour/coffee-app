@@ -14,12 +14,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const price = document.getElementById("price");
     const stock = document.getElementById("stock");
     const category = document.getElementById("category");
+    const images = document.getElementById("images");
     // submit btn
     const submitBtn = document.querySelector(".submit-btn");
 
     addItem.addEventListener("click", () => {
         // set parent action attribute
         form.setAttribute("action", "addItem");
+
+        // set required attribute
+        name.setAttribute("required", "");
+        price.setAttribute("required", "");
+        stock.setAttribute("required", "");
+        category.setAttribute("required", "");
+        images.setAttribute("required", "");
 
         // delete temporary value
         id.removeAttribute("value");
@@ -36,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
     editItem.forEach((element) => {
         const itemId = element.getAttribute("data-id");
         const itemName = element.getAttribute("data-name");
-        const itemPrice = element.getAttribute("data-price");
+        const itemPrice = parseInt(element.getAttribute("data-price"));
         const itemStock = element.getAttribute("data-stock");
         const itemCategory = element.getAttribute("data-category");
 
@@ -44,10 +52,17 @@ document.addEventListener("DOMContentLoaded", () => {
             // set parent action atribute
             form.setAttribute("action", "editItem");
 
+            // unset required attribute
+            name.removeAttribute("required", "");
+            price.removeAttribute("required", "");
+            stock.removeAttribute("required", "");
+            category.removeAttribute("required", "");
+            images.removeAttribute("required", "");
+
             // set temporary value
             id.setAttribute("value", itemId);
             name.setAttribute("value", itemName);
-            price.setAttribute("value", itemPrice);
+            price.setAttribute("value", itemPrice.toLocaleString("id-ID"));
             stock.setAttribute("value", itemStock);
             category.setAttribute("value", itemCategory);
 
@@ -68,6 +83,13 @@ document.addEventListener("DOMContentLoaded", () => {
             // set parent action atribute
             form.setAttribute("action", "deleteItem");
 
+            // unset required attribute
+            name.removeAttribute("required", "");
+            price.removeAttribute("required", "");
+            stock.removeAttribute("required", "");
+            category.removeAttribute("required", "");
+            images.removeAttribute("required", "");
+
             // set temporary value
             id.setAttribute("value", itemId);
             name.setAttribute("value", itemName);
@@ -81,55 +103,28 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    const filterBtn = document.querySelectorAll(".filter-btn");
-    const comodityValue = document.querySelectorAll(".item");
+    const filterBtns = document.querySelectorAll(".filter-btn");
+    const items = document.querySelectorAll(".item-col");
 
-    filterBtn.forEach((btn) => {
-        const btnValue = btn.getAttribute("data-value");
+    filterBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const category = btn.getAttribute("data-value");
+            const active = document.querySelector(".filter-btn-active");
+            if (active) {
+                active.classList.remove("filter-btn-active");
+            }
+            btn.classList.add("filter-btn-active");
 
-        const test = comodityValue.filter((a)=> {
-            return a == 'food'
-        })
-
-        console.log(test)
-
-        
+            items.forEach((item) => {
+                if (
+                    category === "all" ||
+                    item.getAttribute("data-category") === category
+                ) {
+                    item.classList.remove("hide");
+                } else {
+                    item.classList.add("hide");
+                }
+            });
+        });
     });
-
-
-
-
-
-
-
-
-
-
-
-    // const filterBtn = document.querySelectorAll(".filter-btn");
-    // const comodity = document.querySelectorAll(".item");
-
-    // filterBtn.forEach((btn) => {
-    //     const btnValue = btn.getAttribute("data-value");
-
-    //     btn.addEventListener("click", () => {
-    //         console.log(btnValue)
-    //         comodity.forEach((item) => {
-    //             const comodityValue = item.getAttribute("data-category");
-    //             console.log(comodityValue)
-
-    //         });
-    //         comodity.forEach((item) => {
-    //             item.style.display = "none";
-    //             console.log('success')
-    //         });
-            
-    //         comodity.forEach((item) => {
-    //             const comodityValue = item.getAttribute("data-category");
-    //             if (comodityValue == btnValue) {
-    //                 item.style.display = "block";
-    //             }
-    //         });
-    //     });
-    // });
 });

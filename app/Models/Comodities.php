@@ -12,6 +12,10 @@ class Comodities extends Model
     protected $guarded = ['id'];
 
     function items() {
-        return $this->hasMany(SalesItem::class);
+        return $this->hasMany(SalesItem::class, 'comodity_id', 'id');
+    }
+    
+    public function getFormattedPriceAttribute() {
+        return number_format($this->price, 0, ',', '.');
     }
 }

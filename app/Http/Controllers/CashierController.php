@@ -23,19 +23,22 @@ class CashierController extends Controller
 
     public function store(Request $request)
     {
-
+        // $stock = Comodities::find($request->id);
         $data = $request->except('_token');
+        $count = count($data['comodity_id']);
+
+        $total_amount = [];
+        for ($i = 0; $i < $count; $i++) {
+            $total_amount[] = $data['price'][$i] * $data['quantity'][$i];
+        }
 
         $storeSales = Sales::create([
             'sale_date' => date('Y-m-d H:i:s'),
-            'total_amount' => 10000
+            'total_amount' => array_sum($total_amount)
         ]);
-
-        $count = count($data['comodity_id']);
 
         for ($i = 0; $i < $count; $i++) {
             if ($data['quantity'][$i] !== "0") {
-                var_dump($data['quantity'][$i]);
                 $sale_item = SalesItem::create([
                     'sale_id' => $storeSales->id,
                     'comodity_id' => $data["comodity_id"][$i],

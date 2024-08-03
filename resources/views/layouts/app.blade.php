@@ -40,13 +40,19 @@
                     <ul class="navbar-nav me-auto">
                         @if (Auth::check() && Auth::user()->role === 'admin')
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('cashier') }}">Cashier</a>
+                                <a class="nav-link {{ Route::currentRouteName() == 'cashier' ? 'active' : '' }}"
+                                    href="{{ route('cashier') }}">Cashier</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin') }}">Admin</a>
+                                <a class="nav-link {{ Route::currentRouteName() == 'comodity' ? 'active' : '' }}"
+                                    href="{{ route('comodity') }}">Comodity</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Route::currentRouteName() == 'sales' ? 'active' : '' }}"
+                                    href="{{ route('sales') }}">Sales Report</a>
                             </li>
                         @else
-                            <li class="nav-item">
+                            <li class="nav-item {{ Route::currentRouteName() == 'cashier' ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('cashier') }}">Cashier</a>
                             </li>
                         @endif
@@ -92,9 +98,13 @@
             </div>
         </nav>
 
-        <main class="mt-5 container-lg">
+        <main class="container-lg container-content mt-3 mb-5 mb-sm-0 mt-sm-0">
             @yield('content')
         </main>
+
+        <footer class="footer fixed-bottom">
+            <div class="fs-6">copyright © 2024 AnyDros | Design by verryalf</div>
+        </footer>
     </div>
 
     @yield('script')

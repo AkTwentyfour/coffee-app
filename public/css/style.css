@@ -5,6 +5,21 @@
 }
 .navbar {
     background-color: #4f0e0e !important;
+    min-height: 8vh;
+}
+.container-content {
+    min-height: 86vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.footer {
+    height: 6vh;
+    box-sizing: border-box;
+    padding: 10px;
+    background-color: #4f0e0e !important;
+    text-align: center;
+    color: white;
 }
 .fs-7 {
     font-size: 12px;
@@ -13,18 +28,28 @@
     background-color: var(--first) !important;
     color: white !important;
 }
-
-/* cashier */
-.cashier-card {
-    background-color: #f2ead3 !important;
-    border: none;
-    height: 550px;
-    max-height: 550px;
+.scroll-card {
+    height: 80vh;
+    max-height: 80vh;
     overflow: scroll;
+    box-sizing: border-box;
+    border-radius: 10px;
 }
-.cashier-card::-webkit-scrollbar {
+.scroll-card::-webkit-scrollbar {
     display: none;
 }
+.card {
+    border: none;
+    box-sizing: border-box;
+}
+
+/* welcome page */
+.welcome-card {
+    min-height: 50vh;
+    box-shadow: 2px 2px 2px 1px var(--first);
+}
+
+/* cashier */
 .item {
     position: relative;
     height: 200px;
@@ -69,7 +94,6 @@
     color: var(--first);
 }
 
-
 /* purchase-details */
 .purchase-details {
     height: 100%;
@@ -83,15 +107,15 @@
 .test::-webkit-scrollbar {
     display: none;
 }
-.table {
+.cashier-table {
     table-layout: fixed;
 }
 #item-detail td:nth-child(2),
-.table th:nth-child(2) {
+.cashier-table th:nth-child(2) {
     text-align: center;
 }
 #item-detail td:nth-child(3),
-.table th:nth-child(3) {
+.cashier-table th:nth-child(3) {
     text-align: end;
 }
 
@@ -126,7 +150,7 @@
     padding: 8px;
 }
 #total-count input,
-.crud-input /* admin page */ { 
+.crud-input /* admin page */ {
     background-color: var(--second);
     color: black;
     border: none;
@@ -135,13 +159,11 @@
 #total-count input::placeholder {
     font-weight: bold;
 }
-#total-count button{
+#total-count button {
     background-color: var(--first) !important;
     color: white !important;
     width: 50%;
 }
-
-
 
 /* admin page */
 .custom-file-input {
@@ -155,4 +177,34 @@
     color: var(--first);
     border: 1px solid var(--first);
     width: 70%;
+}
+
+/* filter */
+.item-col.hide {
+    display: none;
+}
+.filter-btn {
+    border: 1px solid var(--first);
+    color: var(--first);
+    background-color: transparent;
+}
+.filter-btn:hover {
+    border: 1px solid var(--first);
+    color: white;
+    background-color: var(--first);
+}
+.filter-btn-active {
+    background-color: var(--first);
+    color: white !important;
+}
+.position-fixed {
+    z-index: 100;
+    border: 2px solid red;
+    /* width: 100%; */
+}
+
+/* sales */
+.sales-table th,
+.sales-table td {
+    text-align: center;
 }

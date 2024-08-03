@@ -18,8 +18,9 @@ return new class extends Migration
             $table->string('name');
             $table->integer('price');
             $table->integer('stock');
-            $table->enum('category', ['food','beverage']);
-            $table->string('images')->default('kwasong.png');
+            $table->enum('category', ['coffee','non_coffee', 'traditional_coffee', 'snack', 'heavy_meal']);
+            $table->string('images')->default('placeholder-red.png');
+            $table->integer('capital')->default('5000');
             $table->timestamps();
         });
     }

@@ -1,4 +1,26 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const filterBtns = document.querySelectorAll(".filter-btn");
+    const colItems = document.querySelectorAll(".item-col");
+
+    filterBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const category = btn.getAttribute("data-value");
+            const active = document.querySelector('.filter-btn-active')
+            if (active) {
+                active.classList.remove('filter-btn-active')
+            }
+            btn.classList.add('filter-btn-active')
+
+            colItems.forEach((item) => {
+                if (category === "all" || item.getAttribute("data-category") === category) {
+                    item.classList.remove("hide");
+                } else {
+                    item.classList.add("hide");
+                }
+            });
+        });
+    });
+    
     const items = document.querySelectorAll(".item");
     let temporaryTotal = 0;
 
@@ -46,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // price
                 const itemPrice = document.createElement("td");
-                const textItemPrice = document.createTextNode(price);
+                const textItemPrice = document.createTextNode(price.toLocaleString('id-ID'));
                 itemPrice.appendChild(textItemPrice);
                 itemRow.appendChild(itemPrice);
 
@@ -55,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // total display
                 temporaryTotal = temporaryTotal + price;
-                totalDisplay.innerHTML = temporaryTotal;
+                totalDisplay.innerHTML = temporaryTotal.toLocaleString('id-ID');
 
                 // insert into controller
                 const inputId = document.createElement("input");
@@ -107,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // total display
                 totalPrice = price + temporaryTotal;
                 temporaryTotal = totalPrice;
-                totalDisplay.innerHTML = totalPrice;
+                totalDisplay.innerHTML = totalPrice.toLocaleString('id-ID');
             }
         });
 
@@ -135,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // total display
                 totalPrice = temporaryTotal - price;
                 temporaryTotal = totalPrice;
-                totalDisplay.innerHTML = totalPrice;
+                totalDisplay.innerHTML = totalPrice.toLocaleString('id-ID');
             } else if (quantity == 0) {
 
                 // remove selected border
@@ -176,10 +198,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const cashback = document.querySelector(".cashback");
 
         if (cashInput) {
-            cashOutput.innerHTML = cashInput;
-            cashback.innerHTML = cashInput - temporaryTotal;
-            console.log(cashInput);
-            console.log(temporaryTotal);
+            cashOutput.innerHTML = cashInput.toLocaleString('id-ID');
+            cashback.innerHTML = (cashInput - temporaryTotal).toLocaleString('id-ID');
         }
     });
 });
