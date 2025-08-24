@@ -7,11 +7,14 @@
                 <div class="card-body p-4 scroll-card">
                     <div class="d-flex flex-wrap justify-content-start align-items-center gap-1 mb-4">
                         <button class="filter-btn btn  filter-btn-active" data-value="all">all</button>
-                        <button class="filter-btn btn" data-value="coffee">Coffee</button>
-                        <button class="filter-btn btn" data-value="non_coffee">Non Coffee</button>
-                        <button class="filter-btn btn" data-value="traditional_coffee">Traditional Coffee</button>
-                        <button class="filter-btn btn" data-value="snack">Snack</button>
-                        <button class="filter-btn btn" data-value="heavy_meal">Heavy Meal</button>
+                        <button class="filter-btn btn" data-value="coffee">Kuliner Kering</button>
+                        <button class="filter-btn btn" data-value="non_coffee">Kuliner Basah</button>
+                        <button class="filter-btn btn" data-value="traditional_coffee">Fashion</button>
+                        <button class="filter-btn btn" data-value="snack">Jasa</button>
+                        <button class="filter-btn btn" data-value="heavy_meal">Craft</button>
+                        <button class="filter-btn btn" data-value="heavy_meal">Drink</button>
+                        <button class="filter-btn btn" data-value="heavy_meal">Beauty</button>
+                        <button class="filter-btn btn" data-value="heavy_meal">Furniture</button>
                     </div>
                     <div class="row gy-4">
 
@@ -93,5 +96,5 @@
 @endsection
 
 @section('script')
-    <script src="{{ asset('js/cashier.js') }}"></script>
+    <script src="{{ asset('js/cashier.js') }}"></script>    
 @endsection

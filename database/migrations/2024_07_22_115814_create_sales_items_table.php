@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('sale_id')->constrained('sales')->onDelete('cascade');
             $table->foreignId('comodity_id')->constrained('comodities')->onDelete('cascade');
-            $table->integer('quantity');
+            $table->integer('quantity');    
             $table->integer('price');
             $table->integer('subtotal');
             $table->timestamps();

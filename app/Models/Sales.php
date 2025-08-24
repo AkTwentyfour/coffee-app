@@ -18,4 +18,7 @@ class Sales extends Model
     public function getFormattedPriceAttribute() {
         return number_format($this->total_amount, 0, ',', '.');
     }
+    public function getFormattedGrossMarginAttribute() {
+        return number_format($this->gross_profit, 0, ',', '.');
+    }
 }

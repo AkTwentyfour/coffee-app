@@ -1,0 +1,38 @@
+Environment Configuration (.env):
+
+APP_ENV: Pastikan environment di .env diatur ke production (APP_ENV=production).
+APP_DEBUG: Matikan debug mode (APP_DEBUG=false) untuk menghindari tampilan pesan error di user.
+Database Configuration: Pastikan detail koneksi database diatur dengan benar sesuai dengan server lokal.
+Database Migration:
+
+Lakukan migrasi dan seed database di server lokal menggunakan perintah seperti php artisan migrate --force dan php artisan db:seed.
+Optimisasi Aplikasi:
+
+Caching Configuration: Jalankan perintah berikut untuk mengoptimalkan konfigurasi dan route:
+bash
+Salin kode
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+Autoloading Optimization: Jalankan composer install --optimize-autoloader --no-dev untuk mengoptimalkan autoloading dan menghindari paket development.
+File Permissions:
+
+Pastikan direktori seperti storage/ dan bootstrap/cache/ memiliki izin yang benar agar bisa ditulis oleh aplikasi.
+Local Server Setup:
+
+Konfigurasikan web server lokal (seperti Apache atau Nginx) untuk menunjuk ke direktori public/ Laravel.
+Pastikan server memiliki semua ekstensi PHP yang diperlukan.
+Backup dan Recovery:
+
+Implementasikan sistem backup otomatis untuk database dan file penting lainnya.
+Siapkan prosedur recovery untuk berjaga-jaga jika terjadi kesalahan.
+Testing:
+
+Lakukan pengujian menyeluruh di server lokal untuk memastikan semua fitur berjalan dengan baik.
+Security Considerations:
+
+Pastikan SSL diaktifkan jika ada komunikasi sensitif.
+Verifikasi bahwa file .env dan informasi sensitif lainnya tidak bisa diakses dari web.
+Documentation:
+
+Sediakan dokumentasi untuk proses instalasi dan penggunaan aplikasi bagi client, terutama jika mereka perlu melakukan setup sendiri.

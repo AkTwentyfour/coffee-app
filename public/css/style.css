@@ -2,6 +2,7 @@
 :root {
     --first: #4f0e0e;
     --second: #f2ead3;
+    --second-hover: #f8f1dd;
 }
 .navbar {
     background-color: #4f0e0e !important;
@@ -25,6 +26,15 @@
     font-size: 12px;
 }
 .btn-first {
+    background-color: var(--first) !important;
+    color: white !important;
+}
+.btn-outline-first {
+    background-color: transparent;
+    border: 1px solid var(--first) !important;
+    color: var(--first) !important;
+}
+.btn-outline-first:hover {
     background-color: var(--first) !important;
     color: white !important;
 }
@@ -62,15 +72,26 @@
 }
 .item-info {
     position: absolute;
-    bottom: 0px;
-    left: 0px;
+    bottom: 0;
+    left: 0;
     width: 100%;
     padding: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
+
+    /* efek blur modern */
+    background: rgba(0, 0, 0, 0.2); /* warna gelap transparan */
+    backdrop-filter: blur(8px); /* efek kaca */
+    -webkit-backdrop-filter: blur(8px); /* safari support */
+    border-radius: 0 0 20px 20px; /* biar nyatu sama card */
 }
+.item-info .fs-6 {
+    color: white; /* biar kontras */
+    font-weight: 500;
+}
+
 .item-info .count {
     display: flex;
     justify-content: center;
@@ -178,10 +199,23 @@
     border: 1px solid var(--first);
     width: 70%;
 }
+.form-control:focus {
+    background-color: var(--second-hover);
+}
+.form-control:disabled,
+.form-select:disabled {
+    background-color: var(--second) !important;
+}
 
 /* filter */
+.item-col {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
 .item-col.hide {
-    display: none;
+    opacity: 0;
+    transform: scale(0.1);
+    pointer-events: none;
+    position: absolute;
 }
 .filter-btn {
     border: 1px solid var(--first);

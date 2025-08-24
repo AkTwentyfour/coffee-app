@@ -1,12 +1,15 @@
 <?php
 
-use App\Http\Controllers\AdminController;
+use App\Models\Comodities;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\CashierController;
-use App\Http\Controllers\ComoditiesController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SalesController;
+use App\Http\Controllers\CashierController;
+
+use App\Http\Controllers\ComoditiesController;
+use function PHPUnit\Framework\returnCallback;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +32,13 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 // cashier
+Route::get('/cashier2', function() {
+    $comodities = Comodities::all();
+    
+    return view("cashier/index2", [
+        'comodities' => $comodities
+    ]);
+});
 Route::get('/cashier', [CashierController::class, 'index'])->name('cashier')->middleware('auth');
 Route::post('/cashier', [CashierController::class,'store'])->name('store');
 
@@ -43,3 +53,8 @@ Route::post('/deleteItem', [ComoditiesController::class, 'delete']);
 // Manage Sales
 Route::get('/sales', [SalesController::class, 'index'] )->name('sales')->middleware('admin');
 Route::get('/sales-detail/{id}', [SalesController::class, 'detail'] )->name('sales-detail')->middleware('admin');
+
+
+// test feature
+// Route::get('/test', [SalesController::class, 'test']);
+Route::post('/sales ', [SalesController::class, 'testFeature'])->name('testFeature');

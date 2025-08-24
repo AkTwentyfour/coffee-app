@@ -18,28 +18,41 @@ document.addEventListener("DOMContentLoaded", () => {
     const images = document.getElementById("images");
     // submit btn
     const submitBtn = document.querySelector(".submit-btn");
+    // alert info
+    const alertInfo = document.querySelector(".alert-info");
 
     addItem.addEventListener("click", () => {
         // set parent action attribute
         form.setAttribute("action", "addItem");
 
         // set required attribute
-        name.setAttribute("required", "");
-        price.setAttribute("required", "");
-        stock.setAttribute("required", "");
-        category.setAttribute("required", "");
-        images.setAttribute("required", "");
+        name.required = true;
+        price.required = true;
+        stock.required = true;
+        category.required = true;
+        images.required = true;
 
-        // delete temporary value
-        id.removeAttribute("value");
-        name.removeAttribute("value");
-        price.removeAttribute("value");
-        stock.removeAttribute("value");
-        category.removeAttribute("value");
+        // unset disabled attribute
+        name.removeAttribute("disabled");
+        price.removeAttribute("disabled");
+        stock.removeAttribute("disabled");
+        category.removeAttribute("disabled");
+        images.removeAttribute("disabled");
 
-        // set button text
+        // clear temporary values
+        id.value = "";
+        name.value = "";
+        price.value = "";
+        stock.value = "";
+        category.value = "";
+        images.value = "";
+
+        console.log("Form ready for new item");
+
+        // set action info
+        alertInfo.classList.add("d-none");
         submitBtn.classList.remove("d-none");
-        submitBtn.innerHTML = "Add Comodities";
+        submitBtn.innerHTML = "Add Commodities";
     });
 
     editItem.forEach((element) => {
@@ -50,27 +63,45 @@ document.addEventListener("DOMContentLoaded", () => {
         const itemCategory = element.getAttribute("data-category");
 
         element.addEventListener("click", () => {
-            // set parent action atribute
+            console.log(itemId);
+
+            // set parent action attribute
             form.setAttribute("action", "editItem");
 
-            // unset required attribute
-            name.removeAttribute("required", "");
-            price.removeAttribute("required", "");
-            stock.removeAttribute("required", "");
-            category.removeAttribute("required", "");
-            images.removeAttribute("required", "");
+            // enable input fields
+            name.removeAttribute("disabled");
+            price.removeAttribute("disabled");
+            stock.removeAttribute("disabled");
+            category.removeAttribute("disabled");
+            images.removeAttribute("disabled");
 
-            // set temporary value
-            id.setAttribute("value", itemId);
-            name.setAttribute("value", itemName);
-            price.setAttribute("value", itemPrice.toLocaleString("id-ID"));
-            stock.setAttribute("value", itemStock);
-            defaultCategory.setAttribute("value", itemCategory);
-            defaultCategory.innerHTML = itemCategory
+            // remove required attribute
+            name.removeAttribute("required");
+            price.removeAttribute("required");
+            stock.removeAttribute("required");
+            category.removeAttribute("required");
+            images.removeAttribute("required");
 
-            // set button text
+            // set form values
+            id.value = itemId;
+            name.value = itemName;
+            price.value = itemPrice;
+            stock.value = itemStock;
+
+            // jika category berupa <select>
+            if (category.tagName === "SELECT") {
+                category.value = itemCategory;
+            } else {
+                category.value = itemCategory;
+            }
+
+            // kalau ada defaultCategory display (misalnya span)
+            defaultCategory.innerHTML = itemCategory;
+
+            // set action info
+            alertInfo.classList.add("d-none");
             submitBtn.classList.remove("d-none");
-            submitBtn.innerHTML = "Edit Comodities";
+            submitBtn.innerHTML = "Edit Commodities";
         });
     });
 
@@ -82,26 +113,34 @@ document.addEventListener("DOMContentLoaded", () => {
         const itemCategory = element.getAttribute("data-category");
 
         element.addEventListener("click", () => {
-            // set parent action atribute
+            // set parent action attribute
             form.setAttribute("action", "deleteItem");
 
-            // unset required attribute
-            name.removeAttribute("required", "");
-            price.removeAttribute("required", "");
-            stock.removeAttribute("required", "");
-            category.removeAttribute("required", "");
-            images.removeAttribute("required", "");
+            // set fields disabled
+            name.disabled = true;
+            price.disabled = true;
+            stock.disabled = true;
+            category.disabled = true;
+            images.disabled = true;
 
-            // set temporary value
-            id.setAttribute("value", itemId);
-            name.setAttribute("value", itemName);
-            price.setAttribute("value", itemPrice);
-            stock.setAttribute("value", itemStock);
-            category.setAttribute("value", itemCategory);
+            // remove required
+            name.removeAttribute("required");
+            price.removeAttribute("required");
+            stock.removeAttribute("required");
+            category.removeAttribute("required");
+            images.removeAttribute("required");
 
-            // set button text
+            // set form values
+            id.value = itemId;
+            name.value = itemName;
+            price.value = itemPrice;
+            stock.value = itemStock;
+            category.value = itemCategory;
+
+            // set action info
+            alertInfo.classList.add("d-none");
             submitBtn.classList.remove("d-none");
-            submitBtn.innerHTML = "Delete Comodities";
+            submitBtn.innerHTML = "Delete Commodities";
         });
     });
 
@@ -110,18 +149,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     filterBtns.forEach((btn) => {
         btn.addEventListener("click", () => {
-            const category = btn.getAttribute("data-value");
-            const active = document.querySelector(".filter-btn-active");
-            if (active) {
-                active.classList.remove("filter-btn-active");
-            }
+            const category = btn.dataset.value; // lebih clean pakai dataset
+
+            // ganti tombol aktif
+            document
+                .querySelector(".filter-btn-active")
+                ?.classList.remove("filter-btn-active");
             btn.classList.add("filter-btn-active");
 
+            // filter items
             items.forEach((item) => {
-                if (
-                    category === "all" ||
-                    item.getAttribute("data-category") === category
-                ) {
+                const itemCategory = item.dataset.category;
+                if (category === "all" || itemCategory === category) {
                     item.classList.remove("hide");
                 } else {
                     item.classList.add("hide");

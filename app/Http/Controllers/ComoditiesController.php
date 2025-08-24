@@ -7,7 +7,7 @@ use App\Models\Comodities;
 
 class ComoditiesController extends Controller
 {
-    function index()
+    public function index()
     {
 
         $comodities = Comodities::all();
@@ -19,58 +19,92 @@ class ComoditiesController extends Controller
         return view("admin.comodity", [
             "comodities" => $comodities,
             'food' => $food,
-            'beverage'=> $beverage
+            'beverage' => $beverage
         ]);
     }
 
-    function add(Request $request)
+    public function add(Request $request)
     {
+        // Validasi input
+        $validated = $request->validate([
+            'name'     => 'required|string|max:255',
+            'price'    => 'required|numeric|min:0',
+            'stock'    => 'required|integer|min:0',
+            'category' => 'required|string|max:255',
+            'images'   => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        // Simpan gambar
         $images = $request->file('images');
-        $imagesName = $images->getClientOriginalName();
+        $imagesName = time() . '_' . uniqid() . '.' . $images->getClientOriginalExtension();
         $images->move(public_path('comodity_images'), $imagesName);
 
+        // Simpan data
         Comodities::create([
-            'name' => $request['name'],
-            'price' => $request['price'],
-            'stock' => $request['stock'],
-            'category' => $request['category'],
-            'images' => $imagesName,
+            'name'     => $validated['name'],
+            'price'    => $validated['price'],
+            'stock'    => $validated['stock'],
+            'category' => $validated['category'],
+            'images'   => $imagesName,
         ]);
 
-        return redirect('comodity');
+        return redirect('comodity')->with('success', 'Commodity added successfully!');
     }
 
-    function edit(Request $request, Comodities $comodities)
-    {
-        $id = $request['id'];
-        $item = Comodities::find($id);
-        $image = $item['images'];
 
+    public function edit(Request $request)
+    {
+        $comodity = Comodities::findOrFail($request->id);
+        // validasi input
+        $validated = $request->validate([
+            'name'     => 'required|string|max:255',
+            'price'    => 'required|numeric|min:0',
+            'stock'    => 'required|integer|min:0',
+            'category' => 'required|string|max:255',
+            'images'   => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        // simpan nama gambar lama
+        $imageName = $comodity->images;
+
+        // jika ada upload gambar baru
         if ($request->hasFile('images')) {
+            // // hapus gambar lama kalau ada (soon will be activated)
+            // if ($imageName && file_exists(public_path('comodity_images/' . $imageName))) {
+            //     unlink(public_path('comodity_images/' . $imageName));
+            // }
+
+            // simpan gambar baru
             $images = $request->file('images');
-            $imagesName = time() . '.' . $images->getClientOriginalExtension();
-            $images->move(public_path('comodity_images'), $imagesName);
-            $image = $imagesName;
+            $imageName = time() . '.' . $images->getClientOriginalExtension();
+            $images->move(public_path('comodity_images'), $imageName);
         }
 
-        $item->update([
-            'name' => $request['name'],
-            'price' => $request['price'],
-            'stock' => $request['stock'],
-            'category' => $request['category'],
-            'images' => $image,
+        // update data
+        $comodity->update([
+            'name'     => $validated['name'],
+            'price'    => $validated['price'],
+            'stock'    => $validated['stock'],
+            'category' => $validated['category'],
+            'images'   => $imageName,
         ]);
 
-        return redirect('comodity');
+        return redirect('comodity')->with('success', 'Comodity updated successfully!');
     }
 
-    function delete(Request $request)
+
+    public function delete(Request $request)
     {
-        $id = $request['id'];
-        $item = Comodities::find($id);
+        $comodity = Comodities::findOrFail($request->id);
 
-        $item->delete();
+        // Hapus file gambar dari folder (soon will be activated)
+        // if ($comodity->images && file_exists(public_path('comodity_images/' . $comodity->images))) {
+        //     unlink(public_path('comodity_images/' . $comodity->images));
+        // }
 
-        return redirect('comodity');
+        // Hapus data dari database
+        $comodity->delete();
+
+        return redirect('comodity')->with('success', 'Commodity deleted successfully!');
     }
 }

@@ -9,7 +9,7 @@ class Comodities extends Model
 {
     use HasFactory;
     
-    protected $guarded = ['id'];
+    protected $guarded = [];
 
     function items() {
         return $this->hasMany(SalesItem::class, 'comodity_id', 'id');

@@ -25,23 +25,21 @@
                             <div class="col-md-4 item-col" data-category="{{ $item['category'] }}">
                                 <div class="item"
                                     style="background-image: url({{ asset('comodity_images/' . $item['images']) }})"
-                                    data-id="{{ $id }}" data-name="{{ $item['name'] }}"
+                                    data-id="{{ $item['id'] }}" data-name="{{ $item['name'] }}"
                                     data-stock="{{ $item['stock'] }}" data-price="{{ $item['price'] }}"
                                     data-category="{{ $item['category'] }}">
-                                    <div class="item-info h-100">
-                                        <div class="d-flex flex-column h-100">
-                                            <div class="fs-6 mb-auto">{{ $item['name'] }}</div>
-                                            <div class="fs-7">Stock : {{ $item['stock'] }}</div>
-                                            <div class="fs-7">Price : {{ $item->formatted_price }}</div>
-                                            <div class="fs-7">Category : {{ $item['category'] }}</div>
+                                    <div class="item-info">
+                                        <div>
+                                            <div class="fs-6">{{ $item['name'] }}</div>
+                                            <div class="fs-6">{{ $item->formatted_price }}</div>
                                         </div>
                                         <div class="action align-self-end">
                                             <img src="{{ asset('img/edit.png') }}" height="30" class="me-1 edit"
-                                                data-id="{{ $id }}" data-name="{{ $item['name'] }}"
+                                                data-id="{{ $item['id'] }}" data-name="{{ $item['name'] }}"
                                                 data-stock="{{ $item['stock'] }}" data-price="{{ $item['price'] }}"
                                                 data-category="{{ $item['category'] }}">
                                             <img src="{{ asset('img/delete.png') }}" height="30" class="delete"
-                                                data-id="{{ $id }}" data-name="{{ $item['name'] }}"
+                                                data-id="{{ $item['id'] }}" data-name="{{ $item['name'] }}"
                                                 data-stock="{{ $item['stock'] }}" data-price="{{ $item['price'] }}"
                                                 data-category="{{ $item['category'] }}">
                                         </div>
@@ -64,23 +62,27 @@
                                 @csrf
                                 <input type="hidden" name="id" id="item_id">
                                 <div class="mb-2 custom-file-input">
-                                    <input type="file" name="images" id="images" class="form-control" required>
+                                    <input type="file" name="images" id="images" class="form-control" required
+                                        disabled>
                                 </div>
                                 <div class="mb-2">
                                     <label for="name">Name</label>
-                                    <input type="text" name="name" id="name" class="form-control crud-input">
+                                    <input type="text" name="name" id="name" class="form-control crud-input"
+                                        disabled>
                                 </div>
                                 <div class="mb-2">
                                     <label for="price">Price</label>
-                                    <input type="number" name="price" id="price" class="form-control crud-input">
+                                    <input type="number" name="price" id="price" class="form-control crud-input"
+                                        disabled>
                                 </div>
                                 <div class="mb-2">
                                     <label for="stock">Stock</label>
-                                    <input type="text" name="stock" id="stock" class="form-control crud-input">
+                                    <input type="text" name="stock" id="stock" class="form-control crud-input"
+                                        disabled>
                                 </div>
                                 <div class="mb-2">
                                     <label for="category">Category</label>
-                                    <select name="category" id="category" class="form-select crud-input">
+                                    <select name="category" id="category" class="form-select crud-input" disabled>
                                         <option id="defaultCategory"></option>
                                         <option value="coffee">Coffee</option>
                                         <option value="non_coffee">Non Coffee</option>
@@ -88,6 +90,10 @@
                                         <option value="snack">Snack</option>
                                         <option value="heavy_meal">Heavy Meal</option>
                                     </select>
+                                </div>
+
+                                <div class="alert alert-info p-2 mt-4">
+                                    <p class="text-center m-0">Pilih aksi terlebih dahulu<br>(Add, Edit, atau Delete)</p>
                                 </div>
                                 <button type="submit" class="btn btn-first mt-4 submit-btn w-100 d-none"></button>
                             </form>
@@ -101,4 +107,28 @@
 
 @section('script')
     <script src="{{ asset('js/admin.js') }}"></script>
+
+    @if ($errors->any())
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                html: `{!! implode('<br>', $errors->all()) !!}`,
+                showConfirmButton: false,
+                timer: 3000
+            });
+        </script>
+    @endif
+
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: "{{ session('success') }}",
+                showConfirmButton: false,
+                timer: 3000
+            });
+        </script>
+    @endif
 @endsection

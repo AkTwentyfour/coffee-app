@@ -3,6 +3,9 @@
     "scripts": {
         "dev": "vite",
         "cashier": "vite --host 192.168.18.14 --port 8000",
+        "kost": "vite --host 192.168.0.103 --port 8000",
+        "phone": "vite --host 192.168.133.32 --port 8000",
+        "ums": "vite --host 192.168.193.188z --port 8000",
         "build": "vite build"
     },
     "devDependencies": {

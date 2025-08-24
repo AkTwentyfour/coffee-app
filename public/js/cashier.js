@@ -108,6 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 input.appendChild(inputQuantity);
                 input.appendChild(inputPrice);
                 input.appendChild(inputTotal);
+                
             } else {
                 quantity += 1;
                 click += 1;

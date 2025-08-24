@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('price');
+            $table->integer('cogs')->default('3000');
             $table->integer('stock');
             $table->enum('category', ['coffee','non_coffee', 'traditional_coffee', 'snack', 'heavy_meal']);
             $table->string('images')->default('placeholder-red.png');
-            $table->integer('capital')->default('5000');
             $table->timestamps();
         });
     }
