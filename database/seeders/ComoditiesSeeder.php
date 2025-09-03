@@ -16,41 +16,62 @@ class ComoditiesSeeder extends Seeder
     public function run(): void
     {
         DB::table('comodities')->insert([
-            ['name' => 'Kopi Susu', 'price' => 15000, 'cogs' => 12000, 'stock' => 100, 'comodity_category_id' => '1'],
-            ['name' => 'Kopi Hitam', 'price' => 13000, 'cogs' => 10000, 'stock' => 100, 'comodity_category_id' => '1'],
-            ['name' => 'Kopi Saring', 'price' => 13000, 'cogs' => 10000, 'stock' => 100, 'comodity_category_id' => '1'],
-            ['name' => 'Kopi Barbar', 'price' => 17000, 'cogs' => 14000, 'stock' => 100, 'comodity_category_id' => '1'],
-            ['name' => 'Kopi Kacang', 'price' => 17000, 'cogs' => 14000, 'stock' => 100, 'comodity_category_id' => '1'],
-            ['name' => 'Kopi Mawar', 'price' => 17000, 'cogs' => 14000, 'stock' => 100, 'comodity_category_id' => '1'],
-            ['name' => 'Kopi Kelapa', 'price' => 17000, 'cogs' => 14000, 'stock' => 100, 'comodity_category_id' => '1'],
-            ['name' => 'Kopi Gula Aren', 'price' => 17000, 'cogs' => 14000, 'stock' => 100, 'comodity_category_id' => '1'],
-            ['name' => 'Kopi Cocontol', 'price' => 17000, 'cogs' => 14000, 'stock' => 100, 'comodity_category_id' => '1'],
-            ['name' => 'Kopi Susu Coklat', 'price' => 15000, 'cogs' => 12000, 'stock' => 100, 'comodity_category_id' => '1'],
-            
-            ['name' => 'Kopassus', 'price' => 10000, 'cogs' => 7000, 'stock' => 100, 'comodity_category_id' => '2'],
-            ['name' => 'Sukoco', 'price' => 10000, 'cogs' => 7000, 'stock' => 100, 'comodity_category_id' => '2'],
-            ['name' => 'Kopyok', 'price' => 10000, 'cogs' => 7000, 'stock' => 100, 'comodity_category_id' => '2'],
 
-            ['name' => 'Coklat Kelapa', 'price' => 13000, 'cogs' => 10000, 'stock' => 100, 'comodity_category_id' => '3'],
-            ['name' => 'Coklat Original', 'price' => 13000, 'cogs' => 10000, 'stock' => 100, 'comodity_category_id' => '3'],
-            ['name' => 'Coklat Kacang', 'price' => 13000, 'cogs' => 10000, 'stock' => 100, 'comodity_category_id' => '3'],
-            ['name' => 'Matcha', 'price' => 13000, 'cogs' => 10000, 'stock' => 100, 'comodity_category_id' => '3'],
-            ['name' => 'Red Velvet', 'price' => 13000, 'cogs' => 10000, 'stock' => 100, 'comodity_category_id' => '3'],
+            // Coffee
+            ['name' => 'American Style', 'price' => 10000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 1],
+            ['name' => 'Cappuccino', 'price' => 16000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 1],
+            ['name' => 'Mocha', 'price' => 18000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 1],
+            ['name' => 'Caffe Latte', 'price' => 16000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 1],
+            ['name' => 'Caramel Latte', 'price' => 18000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 1],
+            ['name' => 'Vanilla Latte', 'price' => 18000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 1],
+            ['name' => 'Hazulnate Latte', 'price' => 18000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 1],
+            ['name' => 'Java Coffee', 'price' => 17000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 1],
+            ['name' => 'Sweety Pink Latte', 'price' => 17000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 1],
 
+            // Non Coffee
+            ['name' => 'Jasmin Tea', 'price' => 5000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 2],
+            ['name' => 'Lecy Tea', 'price' => 13000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 2],
+            ['name' => 'Thai Tea', 'price' => 12000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 2],
+            ['name' => 'Lemon Tea', 'price' => 12000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 2],
+            ['name' => 'Lemonade Freez', 'price' => 13000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 2],
+            ['name' => 'Purple Sweet Latte', 'price' => 16000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 2],
+            ['name' => 'Matcha Latte', 'price' => 18000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 2],
+            ['name' => 'Choconese Latte', 'price' => 16000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 2],
+            ['name' => 'Red Velvet Latte', 'price' => 16000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 2],
 
-            
-            ['name' => 'Kentang', 'price' => 10000, 'cogs' => 7000, 'stock' => 100, 'comodity_category_id' => '4'],
-            ['name' => 'Risol isi Ayam', 'price' => 12000, 'cogs' => 9000, 'stock' => 100, 'comodity_category_id' => '4'],
-            ['name' => 'Risol isi Coklat', 'price' => 12000, 'cogs' => 90000, 'stock' => 100, 'comodity_category_id' => '4'],
-            ['name' => 'Lumpia isi Ayam', 'price' => 12000, 'cogs' => 9000, 'stock' => 100, 'comodity_category_id' => '4'],
-            ['name' => 'Pangsit Goreng', 'price' => 12000, 'cogs' => 9000, 'stock' => 100, 'comodity_category_id' => '4'],
-            ['name' => 'Pumpuk', 'price' => 10000, 'cogs' => 7000, 'stock' => 100, 'comodity_category_id' => '4'],
+            // Mocktail
+            ['name' => 'Red Berry', 'price' => 17000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 3],
+            ['name' => 'Green Kiwi', 'price' => 18000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 3],
+            ['name' => 'Sweety Lecy', 'price' => 18000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 3],
+            ['name' => 'Originaly Lime', 'price' => 15000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 3],
+            ['name' => 'Blue Curacao', 'price' => 17000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 3],
 
-            ['name' => 'Mie Goreng', 'price' => 8000, 'cogs' => 5000, 'stock' => 100, 'comodity_category_id' => '5'],
-            ['name' => 'Mie Rebus', 'price' => 8000, 'cogs' => 5000, 'stock' => 100, 'comodity_category_id' => '5'],
-            ['name' => 'Mie Goreng Telor', 'price' => 12000, 'cogs' => 9000, 'stock' => 100, 'comodity_category_id' => '5'],
-            ['name' => 'Mie Rebus Telor', 'price' => 12000, 'cogs' => 9000, 'stock' => 100, 'comodity_category_id' => '5'],
-            ['name' => 'Mie Gemladag', 'price' => 12000, 'cogs' => 9000, 'stock' => 100, 'comodity_category_id' => '5'],
+            // Indomie Varian
+            ['name' => 'Goreng Original', 'price' => 7000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 4],
+            ['name' => 'Goreng Telur Sosis', 'price' => 15000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 4],
+            ['name' => 'Goreng Telur Smoke Beef', 'price' => 15000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 4],
+            ['name' => 'Goreng Sosis Smoke Beef', 'price' => 16000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 4],
+            ['name' => 'Goreng Special', 'price' => 23000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 4],
+            ['name' => 'Kuah Original', 'price' => 7000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 4],
+            ['name' => 'Kuah Telur Sosis', 'price' => 16000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 4],
+            ['name' => 'Kuah Susu Special', 'price' => 20000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 4],
+
+            // Other
+            ['name' => 'French Fries', 'price' => 7000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 5],
+            ['name' => 'Cireg Crispy', 'price' => 10000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 5],
+            ['name' => 'Cireng Isi Ayam', 'price' => 15000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 5],
+            ['name' => 'Kebab Mini', 'price' => 18000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 5],
+            ['name' => 'Mix Platter', 'price' => 23000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 5],
+            ['name' => 'Sosis Klasik', 'price' => 23000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 5],
+            ['name' => 'Nugget Crispy', 'price' => 15000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 5],
+            ['name' => 'Pisang Coklat', 'price' => 13000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 5],
+
+            // Bakeri
+            ['name' => 'Roti Bakar Legit', 'price' => 15000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 6],
+            ['name' => 'Roti Maryam Original', 'price' => 7000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 6],
+            ['name' => 'Roti Maryam Coklat', 'price' => 10000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 6],
+            ['name' => 'Roti Maryam Keju Susu', 'price' => 13000, 'cogs' => 8000, 'stock' => 100, 'comodity_category_id' => 6],
+
         ]);
     }
 }

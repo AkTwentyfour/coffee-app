@@ -14,11 +14,12 @@ class ComodityCategorySeeder extends Seeder
     public function run(): void
     {
         DB::table('comodity_categories')->insert([
-            ["name"=> "coffee"],
-            ["name"=> "traditional coffee"],
-            ["name"=> "non coffee"],
-            ["name"=> "snack"],
-            ["name"=> "heavy meal"],
+            ["name" => "coffee"],
+            ["name" => "non coffe"],
+            ["name" => "mocktail"],
+            ["name" => "indomie varian"],
+            ["name" => "other"],
+            ["name" => "bakeri"]
         ]);
     }
 }
