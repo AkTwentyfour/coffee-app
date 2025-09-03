@@ -15,8 +15,10 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->timestamp('sale_date')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->integer('gross_profit')->default();
+            $table->integer('gross_profit')->nullable();
             $table->integer('total_amount');
+            $table->integer('cash_paid');
+            $table->integer('change_amount');
             $table->timestamps();
         });
     }

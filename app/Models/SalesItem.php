@@ -13,7 +13,7 @@ class SalesItem extends Model
 
 
     function sale() {
-        return $this->belongsTo(Sales::class);
+        return $this->belongsTo(Sales::class, 'id');
     }
 
 

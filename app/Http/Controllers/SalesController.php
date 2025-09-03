@@ -5,25 +5,36 @@ namespace App\Http\Controllers;
 use App\Models\SalesItem;
 use App\Models\Comodities;
 use App\Models\Sales;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class SalesController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $sales = Sales::all();
+        $query = Sales::query();
 
-        $total_sales = [];
-        foreach ($sales as $item) {
-            $total_sales[] = $item->total_amount;
+        // filter by date range
+        if ($request->filled('date_range')) {
+            $dates = explode(" to ", $request->date_range);
+
+            if (count($dates) == 2) {
+                $start = Carbon::parse($dates[0])->startOfDay();
+                $end = Carbon::parse($dates[1])->endOfDay();
+
+                $query->whereBetween('created_at', [$start, $end]);
+            }
         }
+
+        $sales = $query->latest()->paginate(10);
 
         return view("admin.sales", [
             "sales" => $sales,
-            'total' => array_sum($total_sales), 
-            // 'total_gross_margin' => $sales->gross_profit
+            "total" => Sales::sum('total_amount'),
+            "total_gross_margin" => Sales::sum('gross_profit'),
         ]);
     }
+
 
     public function detail($id)
     {
@@ -38,66 +49,50 @@ class SalesController extends Controller
         }
 
         $subtotal_gross_margin = array_sum($gross_margin);
-        $sales->update([
-            'gross_profit' => $subtotal_gross_margin
-        ]);
 
         return view('admin.salesDetail', [
-            'sales' => $sales['sale_date'],
+            'sales' => $sales,
             'sales_item' => $salesItem,
             'gross_margin' => $gross_margin,
             'subtotal_gross_margin' => $subtotal_gross_margin
         ]);
-
-        // $gross_profit = [];
-        // $save_profit = [];
-        // $net_profit = [];
-        // $dead_money = [];
-
-        // $index = 0;
-        // foreach ($salesItem as $item) {
-        //     // $capital = $item->comodity->capital * $item->quantity;
-        //     $gross_profit[] = $item['subtotal'] - 5000;
-
-        //     $save_profit[] = (5 / 100) * $gross_profit[$index];
-        //     $net_profit[] = (85 / 100) * $gross_profit[$index];
-        //     $dead_money[] = (10 / 100) * $gross_profit[$index];
-        //     $index++;
-        // }
-
-        // return view('admin.salesDetail', [
-        //     'sales_item' => $salesItem,
-        //     'comodities' => $comodity,
-        //     'gross_profit' => $gross_profit,
-        //     'save_profit' => $save_profit,
-        //     'net_profit' => $net_profit,
-        //     'dead_money' => $dead_money,
-        // ]);
-    }
-    public function test()
-    {
-        $sales = Sales::all();
-
-
-        return view('test', [
-            'sales' => $sales
-        ]);
     }
 
-    public function testFeature(Request $request)
+    public function filter(Request $request)
     {
-        $sales = Sales::all();
-        $shorted_date = Sales::whereDate('sale_date', $request['date'])->get();
+        $dateRange = $request->input('date_range'); // ex: "2025-08-01 to 2025-08-29"
+        dd($dateRange);
 
-        $total_sales = [];
-        foreach ($sales as $item) {
-            $total_sales[] = $item->total_amount;
+        $sales = Sales::query();
+
+        if ($dateRange) {
+            $dates = explode(" to ", $dateRange);
+
+            if (count($dates) === 2) {
+                $from = Carbon::parse($dates[0])->startOfDay();
+                $to   = Carbon::parse($dates[1])->endOfDay();
+
+                $sales->whereBetween('created_at', [$from, $to]);
+            } else {
+                // kalau user cuma pilih 1 tanggal
+                $sales->whereDate('created_at', Carbon::parse($dates[0]));
+            }
         }
 
-        return view("admin.sales", [
-            "sales" => $sales,
-            'total' => array_sum($total_sales),
-            'shorted_date' => $shorted_date
+        $sales = $sales->get();
+
+        return view('sales.index', compact('sales'));
+    }
+
+
+    public function print($id)
+    {
+        $sale = Sales::findOrFail($id);
+        $saleItem = SalesItem::where('sale_id', $sale->id)->get();
+
+        return view('print', [
+            'sale' => $sale,
+            'saleItem' => $saleItem
         ]);
     }
 }

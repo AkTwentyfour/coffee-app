@@ -5,14 +5,17 @@ document.addEventListener("DOMContentLoaded", function () {
     filterBtns.forEach((btn) => {
         btn.addEventListener("click", () => {
             const category = btn.getAttribute("data-value");
-            const active = document.querySelector('.filter-btn-active')
+            const active = document.querySelector(".filter-btn-active");
             if (active) {
-                active.classList.remove('filter-btn-active')
+                active.classList.remove("filter-btn-active");
             }
-            btn.classList.add('filter-btn-active')
+            btn.classList.add("filter-btn-active");
 
             colItems.forEach((item) => {
-                if (category === "all" || item.getAttribute("data-category") === category) {
+                if (
+                    category === "all" ||
+                    item.getAttribute("data-category") === category
+                ) {
                     item.classList.remove("hide");
                 } else {
                     item.classList.add("hide");
@@ -20,8 +23,12 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     });
-    
+
     const items = document.querySelectorAll(".item");
+    const displayInput = document.getElementById("cash_paid_display");
+    const hiddenInput = document.getElementById("cash_paid");
+    const changeAmount = document.getElementById("change_amount");
+    const cashOutput = document.querySelector(".cash-output");
     let temporaryTotal = 0;
 
     items.forEach((element) => {
@@ -43,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 element.setAttribute("data-count", click);
 
                 // add border to selected item
-                element.style.border = '4px solid lightgreen'
+                element.style.border = "4px solid lightgreen";
 
                 // table row
                 const itemRow = document.createElement("tr");
@@ -68,7 +75,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // price
                 const itemPrice = document.createElement("td");
-                const textItemPrice = document.createTextNode(price.toLocaleString('id-ID'));
+                const textItemPrice = document.createTextNode(
+                    price.toLocaleString("id-ID")
+                );
                 itemPrice.appendChild(textItemPrice);
                 itemRow.appendChild(itemPrice);
 
@@ -77,7 +86,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 // total display
                 temporaryTotal = temporaryTotal + price;
-                totalDisplay.innerHTML = temporaryTotal.toLocaleString('id-ID');
+                totalDisplay.innerHTML = temporaryTotal.toLocaleString("id-ID");
+                displayInput.value = '';
+                hiddenInput.value = '';
+                changeAmount.innerHTML = '';
+                cashOutput.innerHTML = '';
 
                 // insert into controller
                 const inputId = document.createElement("input");
@@ -108,7 +121,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 input.appendChild(inputQuantity);
                 input.appendChild(inputPrice);
                 input.appendChild(inputTotal);
-                
             } else {
                 quantity += 1;
                 click += 1;
@@ -130,39 +142,25 @@ document.addEventListener("DOMContentLoaded", function () {
                 // total display
                 totalPrice = price + temporaryTotal;
                 temporaryTotal = totalPrice;
-                totalDisplay.innerHTML = totalPrice.toLocaleString('id-ID');
+                totalDisplay.innerHTML = totalPrice.toLocaleString("id-ID");
+                displayInput.value = '';
+                hiddenInput.value = '';
+                changeAmount.innerHTML = '';
+                cashOutput.innerHTML = '';
             }
         });
 
         const minus = element.querySelector("#minus");
         minus.addEventListener("click", (e) => {
             e.stopPropagation();
-            if (quantity > 0) {
+            if (quantity == 1) {
                 quantity -= 1;
                 click -= 1;
                 element.setAttribute("data-quantity", quantity);
                 amountDisplay.innerHTML = quantity;
 
-                // update input quantity
-                const update = document.querySelector(
-                    `input[quantity="${itemId}"]`
-                );
-                update.setAttribute("value", quantity);
-
-                // update item quantity (item detail)
-                const itemQuantity = document.querySelector(
-                    `.quantity[data-id="${itemId}"]`
-                );
-                itemQuantity.innerHTML = quantity;
-
-                // total display
-                totalPrice = temporaryTotal - price;
-                temporaryTotal = totalPrice;
-                totalDisplay.innerHTML = totalPrice.toLocaleString('id-ID');
-            } else if (quantity == 0) {
-
                 // remove selected border
-                element.style.border = 'none'
+                element.style.border = "none";
 
                 const itemRow = document.querySelector(
                     `tr[data-id="${itemId}"]`
@@ -185,22 +183,79 @@ document.addEventListener("DOMContentLoaded", function () {
                 input.removeChild(updateInputPrice);
                 input.removeChild(updateInputQuantity);
                 input.removeChild(updateInputSubtotal);
-                click = 0;
+
+                totalPrice = temporaryTotal - price;
+                temporaryTotal = totalPrice;
+                totalDisplay.innerHTML = totalPrice.toLocaleString("id-ID");
+                displayInput.value = '';
+                hiddenInput.value = '';
+                changeAmount.innerHTML = '';
+                cashOutput.innerHTML = '';
+
+            } else if (quantity > 0) {
+                quantity -= 1;
+                click -= 1;
+                element.setAttribute("data-quantity", quantity);
+                amountDisplay.innerHTML = quantity;
+
+                // update input quantity
+                const update = document.querySelector(
+                    `input[quantity="${itemId}"]`
+                );
+                update.setAttribute("value", quantity);
+
+                // update item quantity (item detail)
+                const itemQuantity = document.querySelector(
+                    `.quantity[data-id="${itemId}"]`
+                );
+                itemQuantity.innerHTML = quantity;
+
+                // total display
+                totalPrice = temporaryTotal - price;
+                temporaryTotal = totalPrice;
+                totalDisplay.innerHTML = totalPrice.toLocaleString("id-ID");
+                displayInput.value = '';
+                hiddenInput.value = '';
+                changeAmount.innerHTML = '';
+                cashOutput.innerHTML = '';
             }
         });
     });
+
+    // format rupiah
+    function formatRupiah(angka) {
+        return angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+
+    // event listener on input change
+    displayInput.addEventListener("input", function () {
+        let raw = this.value.replace(/\D/g, "");
+        hiddenInput.value = raw;
+        this.value = raw ? formatRupiah(raw) : "";
+
+        // count change money
+        let cash = parseInt(raw || 0);
+        if (cash < temporaryTotal) {
+            cashOutput.innerHTML = formatRupiah(raw);
+        } else {
+            let kembali = cash - temporaryTotal;
+            changeAmount.innerHTML = `${formatRupiah(kembali)}`;
+            cashOutput.innerHTML = `${formatRupiah(raw)}`;
+        }
+    });
+
     const countBtn = document.querySelector(".count-btn");
     countBtn.addEventListener("click", (event) => {
         event.preventDefault();
         event.stopPropagation();
 
-        const cashInput = parseInt(document.querySelector(".cash-input").value);
-        const cashOutput = document.querySelector(".cash-output");
-        const cashback = document.querySelector(".cashback");
+        let raw = displayInput.value.replace(/\D/g, "");
 
-        if (cashInput) {
-            cashOutput.innerHTML = cashInput.toLocaleString('id-ID');
-            cashback.innerHTML = (cashInput - temporaryTotal).toLocaleString('id-ID');
+        if (raw) {
+            cashOutput.innerHTML = formatRupiah(raw);
+            changeAmount.innerHTML = (raw - temporaryTotal).toLocaleString(
+                "id-ID"
+            );
         }
     });
 });

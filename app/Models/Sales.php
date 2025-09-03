@@ -11,14 +11,27 @@ class Sales extends Model
 
     protected $guarded = ['id'];
 
-    public function sales_item() {
-        return $this->hasMany(SalesItem::class);
+    public function sales_item()
+    {
+        return $this->hasMany(SalesItem::class, 'sale_id');
     }
 
-    public function getFormattedPriceAttribute() {
+    public function getFormattedTotalAmountAttribute()
+    {
         return number_format($this->total_amount, 0, ',', '.');
     }
-    public function getFormattedGrossMarginAttribute() {
+
+    public function getFormattedCashPaidAttribute()
+    {
+        return number_format($this->cash_paid, 0, ',', '.');
+    }
+
+    public function getFormattedChangeAmountAttribute()
+    {
+        return number_format($this->change_amount, 0, ',', '.');
+    }
+    public function getFormattedGrossMarginAttribute()
+    {
         return number_format($this->gross_profit, 0, ',', '.');
     }
 }

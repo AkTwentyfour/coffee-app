@@ -5,29 +5,25 @@
         <div class="col-md-8 position-relative">
             <div class="card" style="background-color: var(--second);">
                 <div class="card-body p-4 scroll-card">
-                    <div class="d-flex justify-content-between mb-4">
+                    <div class="d-flex g-1 justify-content-between mb-4">
                         <div class="d-flex flex-wrap justify-content-start align-items-center gap-1">
                             <button class="filter-btn btn  filter-btn-active" data-value="all">all</button>
-                            <button class="filter-btn btn" data-value="coffee">Coffee</button>
-                            <button class="filter-btn btn" data-value="non_coffee">Non Coffee</button>
-                            <button class="filter-btn btn" data-value="traditional_coffee">Traditional Coffee</button>
-                            <button class="filter-btn btn" data-value="snack">Snack</button>
-                            <button class="filter-btn btn" data-value="heavy_meal">Heavy Meal</button>
+                            @foreach ($comodityCategories as $category)
+                                <button class="filter-btn btn" data-value="{{ $category->id }}">{{ $category->name }}</button>
+                            @endforeach
                         </div>
                         <div>
                             <a class="add btn btn-first" style="height: max-content">Add +</a>
                         </div>
                     </div>
-                    <div class="row gy-4">
-
-                        @php $id = 1; @endphp
+                    <div class="row gy-4 flex-wrap">
                         @foreach ($comodities as $item)
-                            <div class="col-md-4 item-col" data-category="{{ $item['category'] }}">
+                            <div class="col-md-4 item-col" data-category="{{ $item['comodity_category_id'] }}">
                                 <div class="item"
                                     style="background-image: url({{ asset('comodity_images/' . $item['images']) }})"
                                     data-id="{{ $item['id'] }}" data-name="{{ $item['name'] }}"
                                     data-stock="{{ $item['stock'] }}" data-price="{{ $item['price'] }}"
-                                    data-category="{{ $item['category'] }}">
+                                    data-category="{{ $item['comodity_category_id'] }}">
                                     <div class="item-info">
                                         <div>
                                             <div class="fs-6">{{ $item['name'] }}</div>
@@ -37,18 +33,16 @@
                                             <img src="{{ asset('img/edit.png') }}" height="30" class="me-1 edit"
                                                 data-id="{{ $item['id'] }}" data-name="{{ $item['name'] }}"
                                                 data-stock="{{ $item['stock'] }}" data-price="{{ $item['price'] }}"
-                                                data-category="{{ $item['category'] }}">
+                                                data-category="{{ $item['comodity_category_id'] }}">
                                             <img src="{{ asset('img/delete.png') }}" height="30" class="delete"
                                                 data-id="{{ $item['id'] }}" data-name="{{ $item['name'] }}"
                                                 data-stock="{{ $item['stock'] }}" data-price="{{ $item['price'] }}"
-                                                data-category="{{ $item['category'] }}">
+                                                data-category="{{ $item['comodity_category_id'] }}">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            @php $id++ @endphp
                         @endforeach
-
                     </div>
                 </div>
             </div>
@@ -81,14 +75,12 @@
                                         disabled>
                                 </div>
                                 <div class="mb-2">
-                                    <label for="category">Category</label>
-                                    <select name="category" id="category" class="form-select crud-input" disabled>
-                                        <option id="defaultCategory"></option>
-                                        <option value="coffee">Coffee</option>
-                                        <option value="non_coffee">Non Coffee</option>
-                                        <option value="traditional_coffee">Traditional Coffee</option>
-                                        <option value="snack">Snack</option>
-                                        <option value="heavy_meal">Heavy Meal</option>
+                                    <label for="comodity_category_id">Category</label>
+                                    <select name="comodity_category_id" id="comodity_category_id" class="form-select crud-input" disabled>
+                                        <option></option>
+                                        @foreach ($comodityCategories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 

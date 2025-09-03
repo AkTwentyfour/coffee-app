@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@section('css')
+    <style>
+        .form-control:focus {
+            background-color: #f8fafc !important;
+        }
+    </style>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

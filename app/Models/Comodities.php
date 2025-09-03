@@ -14,6 +14,10 @@ class Comodities extends Model
     function items() {
         return $this->hasMany(SalesItem::class, 'comodity_id', 'id');
     }
+
+    function category() {
+        return $this->belongsTo(ComodityCategory::class);
+    }
     
     public function getFormattedPriceAttribute() {
         return number_format($this->price, 0, ',', '.');

@@ -4,8 +4,6 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-use function Laravel\Prompts\table;
-
 return new class extends Migration
 {
     /**
@@ -13,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('comodities', function (Blueprint $table) {
+        Schema::create('comodity_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('price');
-            $table->integer('cogs')->default('3000');
-            $table->integer('stock');
-            $table->foreignId('comodity_category_id')->constrained('comodity_categories')->onDelete('cascade');
-            $table->string('images')->default('placeholder-red.png');
             $table->timestamps();
         });
     }
@@ -30,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('comodities');
+        Schema::dropIfExists('comodity_categories');
     }
 };

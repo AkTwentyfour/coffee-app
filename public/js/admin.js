@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const name = document.getElementById("name");
     const price = document.getElementById("price");
     const stock = document.getElementById("stock");
-    const category = document.getElementById("category");
+    const category = document.getElementById("comodity_category_id");
     const defaultCategory = document.getElementById("defaultCategory");
     const images = document.getElementById("images");
     // submit btn
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
         price.required = true;
         stock.required = true;
         category.required = true;
-        images.required = true;
+        images.required = false;
 
         // unset disabled attribute
         name.removeAttribute("disabled");
@@ -95,8 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 category.value = itemCategory;
             }
 
-            // kalau ada defaultCategory display (misalnya span)
-            defaultCategory.innerHTML = itemCategory;
+            // defaultCategory.innerHTML = itemCategory;
 
             // set action info
             alertInfo.classList.add("d-none");

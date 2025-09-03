@@ -8,7 +8,18 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Barbarian Cafe') }}</title>
+    <title>BKK Cafe</title>
+
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#4CAF50">
+
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("/service-worker.js")
+                .then(() => console.log("Service Worker registered"))
+                .catch(err => console.log("SW registration failed:", err));
+        }
+    </script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -19,6 +30,9 @@
 
     {{-- css --}}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    @yield('css')
 </head>
 
 <body>
@@ -27,7 +41,7 @@
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
                     {{-- <img src="{{ asset('img/logo.png') }}" height="30"> --}}
-                    <div class="ms-2">CachierApp</div>
+                    <div class="ms-2">BKK Cafee</div>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -46,6 +60,10 @@
                             <li class="nav-item">
                                 <a class="nav-link {{ Route::currentRouteName() == 'comodity' ? 'active' : '' }}"
                                     href="{{ route('comodity') }}">Comodity</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Route::currentRouteName() == 'category.index' ? 'active' : '' }}"
+                                    href="{{ route('category.index') }}">Manage Category</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {{ Route::currentRouteName() == 'sales' ? 'active' : '' }}"
@@ -104,11 +122,13 @@
         </main>
 
         <footer class="footer fixed-bottom">
-            <div class="fs-6">copyright © 2024 SYDSE</div> {{-- | Design by verryalf --}}
+            <div class="fs-6">Cashier powered by cdtwin.corp</div>
         </footer>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     @yield('script')
 </body>
 
